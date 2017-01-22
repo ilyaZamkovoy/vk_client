@@ -63,8 +63,6 @@ class VKDelegateEx: VKDelegate {
         return NSApplication.shared().windows[0]
     }
     
-    
-    
     #elseif os(iOS)
     func vkWillPresentView() -> UIViewController {
         return UIApplication.shared.delegate!.window!!.rootViewController!

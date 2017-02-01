@@ -22,6 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    func resetAppToFirstController() {
+        self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Root_View") as! LoginController
+    }
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         let app = options[.sourceApplication] as? String
         VK.process(url: url, sourceApplication: app)

@@ -194,6 +194,13 @@ internal class Token: NSObject, NSCoding {
     class func remove() {
         removeSavedData()
         tokenInstance = nil
+        let cookie = HTTPCookie.self
+        let cookieJar = HTTPCookieStorage.shared
+        
+        for cookie in cookieJar.cookies! {
+            // print(cookie.name+"="+cookie.value)
+            cookieJar.deleteCookie(cookie)
+        }
         VK.Log.put("Token", "removed")
     }
 

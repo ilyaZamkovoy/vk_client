@@ -10,10 +10,12 @@ import Foundation
 
 class News {
 
+    var id: Int!
     var text: String!
     var date: Double!
     var photo: String!
     var ownerApiId: String!
+    var index: Int?
     
     var user: User!
     var group: Group!

@@ -1,10 +1,16 @@
 PODS:
-  - SwiftyJSON (3.1.3)
+  - Alamofire (4.3.0)
+  - Kingfisher (3.2.4)
+  - SwiftyJSON (3.1.4)
   - SwiftyVK (2.0.1)
+  - UIScrollView-InfiniteScroll (1.0.0)
 
 DEPENDENCIES:
+  - Alamofire (~> 4.3)
+  - Kingfisher (~> 3.0)
   - SwiftyJSON
   - SwiftyVK (from `https://github.com/WE-St0r/SwiftyVK.git`)
+  - UIScrollView-InfiniteScroll (~> 1.0.0)
 
 EXTERNAL SOURCES:
   SwiftyVK:
@@ -16,9 +22,12 @@ CHECKOUT OPTIONS:
     :git: https://github.com/WE-St0r/SwiftyVK.git
 
 SPEC CHECKSUMS:
-  SwiftyJSON: 38a8ea2006779c0fc4c310cb2ee8195327740faf
+  Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
+  Kingfisher: 8d80f39da403cd9c9ee11984e1655f4d6a566cdb
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   SwiftyVK: 555c309aa25aaf24453117c977be85a7b7908075
+  UIScrollView-InfiniteScroll: d26885be71caca7485cdb37eab513a8f89036bb0
 
-PODFILE CHECKSUM: 5ae8e622217f63e6099d948393fc445d6efa4c4a
+PODFILE CHECKSUM: 7ea4a361ca23e2dc4c01a3c0686a986fabe3e8d0
 
 COCOAPODS: 1.1.1

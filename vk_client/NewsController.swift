@@ -8,173 +8,93 @@
 
 import UIKit
 import SwiftyVK
-import SwiftyJSON
+import Kingfisher
+
 
 class NewsController: UIViewController, UITableViewDataSource, UITableViewDelegate{
 
     @IBOutlet var tableView: UITableView!
-    
-    
-    var userArray: [User]! = []
+    var countOfRows = 10
     var newsArray: [News]! = []
-    var groupArray: [Group]! = []
     
     var refreshControl: UIRefreshControl!
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.addDataIntoNewsArray(callback: {
+            DispatchQueue.main.async {
+                self.tableView.dataSource = self
+                self.tableView.reloadData()
+            }
+            self.addFunctions()
+            self.addInfinityScroll()
+        })
         
-        var checkNews: Bool! = false
-        var checkFriends: Bool! = false
-        var checkGroups: Bool! = false
+    }
+    //making first request for news on app starting
+    func addDataIntoNewsArray(callback: @escaping () -> Void){
+        DispatchQueue.main.async {
+            APIWorker.getNews { result in
+                self.newsArray = result
+                callback()
+            }
+        }
         
+        
+    }
+    //adding refresh control and cell
+    func addFunctions(){
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(self.refresh(sender:)), for: UIControlEvents.valueChanged)
-        tableView.addSubview(refreshControl) // not required when using UITableViewController
+        tableView.addSubview(refreshControl)
         
-        VK.API.custom(method: "newsfeed.get").send(
-            onSuccess:{ response in
-                print(response["items"].arrayValue[0])
-                var i = 0;
-                var j = 0;
-                while j != 10{
-                    
-                    let news = News()
-                    if response["items"].arrayValue[i]["attachments"] != nil{
-                        news.date = response["items"].arrayValue[i]["date"].doubleValue
-                        news.ownerApiId = response["items"].arrayValue[i]["source_id"].stringValue
-                    
-                        if response["items"].arrayValue[i]["attachments"].arrayValue[0]["type"].stringValue == "photo"{
-                            news.photo = response["items"].arrayValue[i]["attachments"].arrayValue[0]["photo"]["photo_130"].stringValue
-                        } else {
-                            news.photo = response["items"].arrayValue[i]["attachments"].arrayValue[0]["video"]["video_75"].stringValue
-                        }
-                        print(j)
-                        j += 1;
-                    
-                        news.text = response["items"].arrayValue[i]["text"].stringValue
-                    
-                        self.newsArray.append(news)
-                    } else {
-                        print(response["items"].arrayValue[i])
-                    }
-                    i += 1;
-                    
-                }
-                checkNews = true
-                
-                if checkNews == true && checkGroups == true && checkFriends == true {
-                    self.checkOwner()
-                    DispatchQueue.main.async {
-                        self.tableView.dataSource = self
-                        self.tableView.reloadData()
-                    }
-                }
-                
-            },
-            onError: {error in print(" fail \n \(error)")}
-        )
-        
-        VK.API.custom(method: "friends.get", parameters: [VK.Arg.fields: "photo"]).send(
-            onSuccess:{ response in
-                for i in 0...(response["items"].arrayValue.count - 1){
-                    
-                    let user =  User()
-                    
-                    user.id = response["items"].arrayValue[i]["id"].intValue
-                    user.first_name = response["items"].arrayValue[i]["first_name"].stringValue
-                    user.last_name = response["items"].arrayValue[i]["last_name"].stringValue
-                    user.photo = response["items"].arrayValue[i]["photo"].stringValue
-                    
-                    
-                    self.userArray.append(user)
-                }
-                
-                 checkFriends = true
-                
-                
-                if checkNews == true && checkGroups == true && checkFriends == true {
-                    self.checkOwner()
-                    DispatchQueue.main.async {
-                        self.tableView.dataSource = self
-                        self.tableView.reloadData()
-                    }
-                }
-            },
-            onError: {error in print(" fail \n \(error)")}
-        )
-        
-        VK.API.custom(method: "groups.get", parameters: [VK.Arg.extended: "1"]).send(
-            onSuccess:{ response in
-                
-                for i in 0...(response["items"].arrayValue.count - 1){
-                    let group = Group()
-                    
-                    group.id = response["items"].arrayValue[i]["id"].intValue
-                    group.name = response["items"].arrayValue[i]["name"].stringValue
-                    group.photo = response["items"].arrayValue[i]["photo_100"].stringValue
-                    
-                    self.groupArray.append(group)
-                
-                }
-                
-                checkGroups = true
-                
-                if checkNews == true && checkGroups == true && checkFriends == true {
-                    self.checkOwner()
-                    DispatchQueue.main.async {
-                        self.tableView.dataSource = self
-                        self.tableView.reloadData()
-                    }
-                }
-            },
-            onError: {error in print(" fail \n \(error)")}
-        )
-       
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 450
     }
-    
-    func refresh(sender:AnyObject) {
-        // Code to refresh table view
-        
-        print("hello world")
-        
-        
-        refreshControl.endRefreshing()
-    }
-    
-    func checkOwner(){
-        for i in 0...9 {
-            let news = self.newsArray[i]
-            var ip = news.ownerApiId
-            
-            var chars = ip?.characters.map { String($0) }
-            
-            if chars?[0] == "-"{
-                ip?.remove(at: (ip?.startIndex)!)
-                var group = Group()
-                for j in 0...(self.groupArray.count - 1){
-                    let number = groupArray[j].id as NSNumber!
-                    if ip == number?.stringValue{
-                        group = groupArray[j]
-                    }
-                }
-                self.newsArray[i].group = group
-            } else {
-                var user = User()
-                
-                for j in 0...(self.userArray.count - 1){
-                    let number = userArray[j].id as NSNumber!
-                    if ip == number?.stringValue{
-                        user = userArray[j]
-                    }
-                }
-                self.newsArray[i].user = user
+    //func that adding all news from newsArray
+    func addInfinityScroll(){
+        tableView.addInfiniteScroll { (tableView) -> Void in
+            self.countOfRows = self.newsArray.count - 1
+            DispatchQueue.main.async {
+                self.tableView.dataSource = self
+                self.tableView.reloadData()
             }
+            tableView.finishInfiniteScroll()
         }
     }
-    
+    //func that reload table view and calling func for updating data in newsArray
+    func refresh(sender:AnyObject) {
+        let rowCount = self.newsArray.count 
+        
+        self.gettingFreshNews {
+            
+            self.countOfRows += self.newsArray.count - rowCount
+            self.refreshControl.endRefreshing()
+            DispatchQueue.main.async {
+                self.tableView.dataSource = self
+                self.tableView.reloadData()
+            }
+            
+        }
+        
+        
+    }
+    //func that update news in newsArray
+    func gettingFreshNews(callback: @escaping () -> Void){
+        DispatchQueue.main.async {
+            APIWorker.refresh(newsArray: self.newsArray){ result in
+                self.newsArray = result
+                callback()
+            }
+        }
+        
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -182,19 +102,26 @@ class NewsController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.countOfRows
     }
     
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath as IndexPath) as! NewsTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell") as! NewsTableViewCell
         
         let news = self.newsArray[indexPath.row]
+        news.index = indexPath.row
         
         if !news.text.isEmpty {
-            cell.postTextLabel.text = news.text
+            let amount = news.text.characters.count
+            if amount > 70 {
+                let index = news.text.index(news.text.startIndex, offsetBy: 67)
+                cell.postTextLabel.text = news.text.substring(to: index) + "..."
+            } else {
+                cell.postTextLabel.text = news.text
+            }
         } else {
-            cell.postTextLabel.text = "no post text here"
+            cell.postTextLabel.text = "  "
         }
         
         let date = NSDate(timeIntervalSince1970: news.date)
@@ -205,37 +132,55 @@ class NewsController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         cell.postDateLabel.text = dateInFormat
         
-        if news.user != nil {
-            let user = news.user!
-            cell.postOwnersNameLabel.text = "\(user.first_name!) \(user.last_name!)"
-            let url = URL(string: user.photo)
-            let data = try? Data(contentsOf: url!)
-            cell.postOwnersImage.image = UIImage(data: data!)
-        } else {
-            let group = news.group!
-            cell.postOwnersNameLabel.text = group.name
-            let url = URL(string: group.photo)
-            let data = try? Data(contentsOf: url!)
-            cell.postOwnersImage.image = UIImage(data: data!)
-        }
         
         
-        if !news.photo.isEmpty {
-            let imageUrl = news.photo
+            if news.user != nil {
+                let user = news.user!
+                cell.postOwnersNameLabel.text = "\(user.first_name!) \(user.last_name!)"
+                let url = URL(string: user.photo)
+                cell.postOwnersImage.layer.cornerRadius = cell.postOwnersImage.bounds.size.width / 2.0
+                cell.postOwnersImage.layer.masksToBounds = true
+                cell.postOwnersImage.kf.setImage(with: url)                
+            } else {
+                let group = news.group!
+                cell.postOwnersNameLabel.text = group.name
+                if group.photo != nil {
+                    let url = URL(string: group.photo)
+                    cell.postOwnersImage.layer.cornerRadius = cell.postOwnersImage.bounds.size.width / 2.0
+                    cell.postOwnersImage.layer.masksToBounds = true
+                    cell.postOwnersImage.kf.setImage(with: url)
+                }
+            }
         
-            let url = URL(string: imageUrl!)
-            let data = try? Data(contentsOf: url!)
-            cell.postImage.image = UIImage(data: data!)
-        }else{
-            cell.postImage.image = #imageLiteral(resourceName: "addImage")
-        }
+        
+        
+            if news.photo != nil {
+                let url = URL(string: news.photo)
+                cell.postImage.kf.setImage(with: url)
+            }else{
+                cell.postImage.image = #imageLiteral(resourceName: "addImage")
+            }
+        
+        
         return cell
     }
     
+    @IBAction func unwindToLogin(_ sender: UIButton) {
+        APIWorker.logout()
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.resetAppToFirstController()
+    }
     
     
-    
-    
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "showNewsSegue"{
+            if let indexPath = self.tableView.indexPathForSelectedRow{
+                let destinationVC = segue.destination as! DetailViewController
+                destinationVC.news = self.newsArray[(indexPath as NSIndexPath).row]
+            }
+            
+        }
+    }
 
 }

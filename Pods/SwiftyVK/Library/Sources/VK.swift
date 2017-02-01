@@ -63,7 +63,14 @@ public struct VK {
         VK.Log.put("Global", "SwiftyVK configured")
     }
 
-
+    public static func check() -> Bool {
+        if Token.get() != nil {
+            return true
+        } else {
+            return false        
+        }
+    
+    }
 
     /**
      Getting authenticate token.

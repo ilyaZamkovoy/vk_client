@@ -39,8 +39,6 @@ class VKDelegateEx: VKDelegate {
     }
     
     
-    
-    
     func vkAutorizationFailedWith(error: AuthError) {
         print("Autorization failed with error: \n\(error)")
         NotificationCenter.default.post(name: Notification.Name(rawValue: "TestVkDidNotAuthorize"), object: nil)

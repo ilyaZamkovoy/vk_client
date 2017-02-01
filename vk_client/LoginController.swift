@@ -16,10 +16,17 @@ class LoginController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
+        
         NotificationCenter.default.addObserver(self, selector: #selector(LoginController.loginSuccessfull(note:)),
                                                name: Notification.Name(rawValue: "TestVkDidAuthorize"), object: nil)
-
+        
         // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     func loginSuccessfull(note: Notification) {
@@ -31,11 +38,17 @@ class LoginController: UIViewController{
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
     @IBAction func login(_ sender: UIButton) {
-        VK.logOut()
-        print("SwiftyVK: LogOut")
-        VK.logIn()
-        print("SwiftyVK: authorize")
+        let check = VK.check()
+        
+        if check == true{
+            performSegue(withIdentifier: "News", sender: self)
+        } else {
+            print("user not authorized")
+            APIWorker.authorize()
+        }
     }
 }
 

@@ -11,6 +11,10 @@
 		AC1670621E1148020003EC3B /* NewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1670611E1148020003EC3B /* NewsController.swift */; };
 		AC1670651E1154A20003EC3B /* VKDelegateEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1670641E1154A20003EC3B /* VKDelegateEx.swift */; };
 		AC1AE3381E12AF020084534A /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1AE3371E12AF020084534A /* NewsTableViewCell.swift */; };
+		AC54B3951E1E4D76006A26D9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC54B3941E1E4D76006A26D9 /* User.swift */; };
+		AC54B3971E1E4DCA006A26D9 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC54B3961E1E4DCA006A26D9 /* Group.swift */; };
+		AC54B3991E1E4EA5006A26D9 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC54B3981E1E4EA5006A26D9 /* News.swift */; };
+		AC8921041E193471005E021C /* ApiWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8921031E193471005E021C /* ApiWorker.swift */; };
 		ACB294071E11430A004D06A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB294061E11430A004D06A2 /* AppDelegate.swift */; };
 		ACB294091E11430A004D06A2 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB294081E11430A004D06A2 /* LoginController.swift */; };
 		ACB2940C1E11430A004D06A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACB2940A1E11430A004D06A2 /* Main.storyboard */; };
@@ -23,6 +27,10 @@
 		AC1670611E1148020003EC3B /* NewsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsController.swift; sourceTree = "<group>"; };
 		AC1670641E1154A20003EC3B /* VKDelegateEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKDelegateEx.swift; sourceTree = "<group>"; };
 		AC1AE3371E12AF020084534A /* NewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
+		AC54B3941E1E4D76006A26D9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		AC54B3961E1E4DCA006A26D9 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		AC54B3981E1E4EA5006A26D9 /* News.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
+		AC8921031E193471005E021C /* ApiWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiWorker.swift; sourceTree = "<group>"; };
 		ACB294031E11430A004D06A2 /* vk_client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vk_client.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACB294061E11430A004D06A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACB294081E11430A004D06A2 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
@@ -83,6 +91,10 @@
 				AC1670641E1154A20003EC3B /* VKDelegateEx.swift */,
 				AC1670611E1148020003EC3B /* NewsController.swift */,
 				AC1AE3371E12AF020084534A /* NewsTableViewCell.swift */,
+				AC8921031E193471005E021C /* ApiWorker.swift */,
+				AC54B3941E1E4D76006A26D9 /* User.swift */,
+				AC54B3961E1E4DCA006A26D9 /* Group.swift */,
+				AC54B3981E1E4EA5006A26D9 /* News.swift */,
 				ACB2940A1E11430A004D06A2 /* Main.storyboard */,
 				ACB294101E11430A004D06A2 /* Assets.xcassets */,
 				ACB294121E11430A004D06A2 /* LaunchScreen.storyboard */,
@@ -224,11 +236,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC54B3971E1E4DCA006A26D9 /* Group.swift in Sources */,
 				AC1670621E1148020003EC3B /* NewsController.swift in Sources */,
 				ACB294091E11430A004D06A2 /* LoginController.swift in Sources */,
 				AC1AE3381E12AF020084534A /* NewsTableViewCell.swift in Sources */,
 				AC1670651E1154A20003EC3B /* VKDelegateEx.swift in Sources */,
+				AC54B3951E1E4D76006A26D9 /* User.swift in Sources */,
+				AC8921041E193471005E021C /* ApiWorker.swift in Sources */,
 				ACB294071E11430A004D06A2 /* AppDelegate.swift in Sources */,
+				AC54B3991E1E4EA5006A26D9 /* News.swift in Sources */,
 				ACB2940F1E11430A004D06A2 /* vk_client.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -353,6 +369,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 3B2U3D85L3;
 				INFOPLIST_FILE = vk_client/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zamkovoyIlya.vk-client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -367,6 +384,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 3B2U3D85L3;
 				INFOPLIST_FILE = vk_client/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zamkovoyIlya.vk-client";
 				PRODUCT_NAME = "$(TARGET_NAME)";

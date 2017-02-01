@@ -33,7 +33,9 @@ class LoginController: UIViewController{
     
     @IBAction func login(_ sender: UIButton) {
         VK.logOut()
+        print("SwiftyVK: LogOut")
         VK.logIn()
+        print("SwiftyVK: authorize")
     }
 }
 

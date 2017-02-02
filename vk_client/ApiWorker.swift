@@ -27,67 +27,12 @@ final class APIWorker {
         
         VK.API.custom(method: "newsfeed.get").send(
             onSuccess:{ response in
-                
                 var i = 0;
-                
                 while i != response["items"].count{
-                    let news = News()
-                    var finalCheck = true
-                    
+                    var news = News()
                     if response["items"].arrayValue[i]["attachments"] != nil{
-                        var k = 0
-                        var count = response["items"].arrayValue[i]["attachments"].count
-                        while count != 0{
-                            if response["items"].arrayValue[i]["attachments"].arrayValue[k]["type"].stringValue != "photo"{
-                                finalCheck = false
-                            }
-                            k += 1
-                            count -= 1
-                        }
-                        
-                        if finalCheck == true{
-                            news.id = response["items"].arrayValue[i]["post_id"].intValue
-                            news.date = response["items"].arrayValue[i]["date"].doubleValue
-                            news.ownerApiId = response["items"].arrayValue[i]["source_id"].stringValue
-                            
-                            if response["items"].arrayValue[i]["attachments"].arrayValue[0]["type"].stringValue == "photo"{
-                                news.photo = response["items"].arrayValue[i]["attachments"].arrayValue[0]["photo"]["photo_604"].stringValue
-                            }
-                            
-                            news.text = response["items"].arrayValue[i]["text"].stringValue
-                            var id = news.ownerApiId
-                            
-                            var groups = response["groups"].array
-                            var users = response["profiles"].array
-                            
-                            var chars = id?.characters.map { String($0) }
-                            if chars?[0] == "-"{
-                                id?.remove(at: (id?.startIndex)!)
-                                let group = Group()
-                                for j in 0...((groups?.count)! - 1){
-                                    let number = groups![j]["id"].intValue as NSNumber!
-                                    if id == number?.stringValue{
-                                        group.id = groups![j]["id"].intValue
-                                        group.name = groups![j]["name"].stringValue
-                                        group.photo = groups![j]["photo_100"].stringValue
-                                        news.group = group
-                                    }
-                                }
-                            } else if chars?[0] != "-"{
-                                let user = User()
-                                for j in 0...((users?.count)! - 1){
-                                    let number = users?[j]["id"].intValue as NSNumber!
-                                    
-                                    if id == number?.stringValue{
-                                        user.id = users?[j]["id"].intValue
-                                        user.first_name = users?[j]["first_name"].stringValue
-                                        user.last_name = users?[j]["last_name"].stringValue
-                                        user.photo = users?[j]["photo_100"].stringValue
-                                        news.user = user
-                                    }
-                                }
-                                
-                            }
+                        news = JSONParser.parseNews(items: response["items"].arrayValue[i], users: response["profiles"], groups: response["groups"])
+                        if news.id != nil{
                             newsArray.append(news)
                         }
                     }
@@ -104,77 +49,21 @@ final class APIWorker {
         
         VK.API.custom(method: "newsfeed.get").send(
             onSuccess:{ response in
-
                 var i = 0
                 let controlNews = newsArr[0]
-                var finalCheck = true
                 var check = false
                 while check != true{
-                    
-                    let news = News()
-                    if response["items"].arrayValue[i]["attachments"] != nil{
-                        if controlNews.id != response["items"].arrayValue[i]["post_id"].intValue{
-                            var k = 0
-                            var count = response["items"].arrayValue[i]["attachments"].count
-                            while count != 0{
-                                if response["items"].arrayValue[i]["attachments"].arrayValue[k]["type"].stringValue != "photo"{
-                                    finalCheck = false
-                                }
-                                k += 1
-                                count -= 1
-                            }
-                            if finalCheck == true{
-                                news.id = response["items"].arrayValue[i]["post_id"].intValue
-                                news.date = response["items"].arrayValue[i]["date"].doubleValue
-                                news.ownerApiId = response["items"].arrayValue[i]["source_id"].stringValue
-                                
-                                if response["items"].arrayValue[i]["attachments"].arrayValue[0]["type"].stringValue == "photo"{
-                                    news.photo = response["items"].arrayValue[i]["attachments"].arrayValue[0]["photo"]["photo_604"].stringValue
-                                }
-                                
-                                news.text = response["items"].arrayValue[i]["text"].stringValue
-                                
-                                var id = news.ownerApiId
-                                
-                                var groups = response["groups"].array
-                                var users = response["profiles"].array
-                                
-                                var chars = id?.characters.map { String($0) }
-                                if chars?[0] == "-"{
-                                    id?.remove(at: (id?.startIndex)!)
-                                    let group = Group()
-                                    for j in 0...((groups?.count)! - 1){
-                                        let number = groups![j]["id"].intValue as NSNumber!
-                                        if id == number?.stringValue{
-                                            group.id = groups![j]["id"].intValue
-                                            group.name = groups![j]["name"].stringValue
-                                            group.photo = groups![j]["photo_100"].stringValue
-                                            news.group = group
-                                        }
-                                    }
-                                } else if chars?[0] != "-"{
-                                    let user = User()
-                                    for j in 0...((users?.count)! - 1){
-                                        let number = users?[j]["id"].intValue as NSNumber!
-                                        
-                                        if id == number?.stringValue{
-                                            user.id = users?[j]["id"].intValue
-                                            user.first_name = users?[j]["first_name"].stringValue
-                                            user.last_name = users?[j]["last_name"].stringValue
-                                            user.photo = users?[j]["photo_100"].stringValue
-                                            news.user = user
-                                        }
-                                    }
-                                    
-                                }
-                                print(news.text)
-                                newsArr.insert(news, at: 0)
-                            }
-                        } else {
-                            check = true
+                    if controlNews.id != response["items"].arrayValue[i]["post_id"].intValue{
+                        var news: News?
+                        news = JSONParser.parseNews(items: response["items"].arrayValue[i], users: response["profiles"], groups: response["groups"])
+                        if news != nil{
+                            newsArr.insert(news!, at: 0)
                         }
+                        i += 1;
+                    } else {
+                        check = true
                     }
-                    i += 1;
+                    
                 }
                 callback(newsArr)
         },
@@ -182,6 +71,20 @@ final class APIWorker {
         )
     }
     
+    class func getOlderNews(newsArray: [News], callback: @escaping ([News]) -> Void){
+        var newsArr = newsArray
+        
+        VK.API.custom(method: "newsfeed.get", parameters: [VK.Arg(rawValue: "start_time")! : "retes"]).send(
+            onSuccess: { response in
+        
+                
+        
+        },
+            onError: { error in print("fail \n \(error)")}
+        
+        )
+    
+    }
     
     class func captcha() {
         VK.API.custom(method: "captcha.force").send(

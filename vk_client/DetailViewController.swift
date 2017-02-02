@@ -45,7 +45,7 @@ class DetailViewController: UIViewController {
         
         if news.user != nil {
             let user = news.user!
-            userNameLabel.text = "\(user.first_name!) \(user.last_name!)"
+            userNameLabel.text = user.name
             let url = URL(string: user.photo)
             
             userProfileImage.kf.setImage(with: url)

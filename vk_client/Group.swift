@@ -8,10 +8,6 @@
 
 import Foundation
 
-class Group {
-
+class Group: Owner {
     
-    var name: String!
-    var id: Int!
-    var photo: String!
 }

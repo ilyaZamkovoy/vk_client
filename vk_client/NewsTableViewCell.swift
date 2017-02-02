@@ -14,10 +14,18 @@ class NewsTableViewCell: UITableViewCell {
     @IBOutlet weak var postImage: UIImageView!
     @IBOutlet weak var postOwnersNameLabel: UILabel!
     @IBOutlet weak var postDateLabel: UILabel!
-    @IBOutlet weak var postTextLabel: UITextView!
+    @IBOutlet weak var postTextLabel: UILabel!
     
     
-    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.postImage.image = nil
+        self.postDateLabel.text = nil
+        self.postOwnersImage.image = nil
+        self.postTextLabel.text = nil
+        self.postOwnersNameLabel.text = nil
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,5 +36,24 @@ class NewsTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
+    }
+
+    func compareData(news: News){
+        
+        self.postTextLabel.text = news.text
+        
+        self.postDateLabel.text = news.finalDate
+        
+        let owner = news.finalOwner
+        self.postOwnersNameLabel.text = owner.name
+        let url = URL(string: owner.photo)
+        self.postOwnersImage.kf.setImage(with: url)
+        
+        if news.photo != nil {
+            let url = URL(string: news.photo)
+            self.postImage.kf.setImage(with: url)
+        }else{
+            self.postImage.image = #imageLiteral(resourceName: "addImage")
+        }
     }
 }

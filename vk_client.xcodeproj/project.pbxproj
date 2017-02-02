@@ -13,6 +13,8 @@
 		AC1AE3381E12AF020084534A /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1AE3371E12AF020084534A /* NewsTableViewCell.swift */; };
 		AC1F83C61E420B330011AF79 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1F83C51E420B330011AF79 /* Extensions.swift */; };
 		AC2F60751E362EDE00E26A4D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F60741E362EDE00E26A4D /* DetailViewController.swift */; };
+		AC35E1911E43397E001F4A25 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC35E1901E43397E001F4A25 /* JSONParser.swift */; };
+		AC35E1931E437164001F4A25 /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC35E1921E437164001F4A25 /* Owner.swift */; };
 		AC35FF751E40B938006E7481 /* NewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC35FF741E40B938006E7481 /* NewsTableViewCell.xib */; };
 		AC54B3951E1E4D76006A26D9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC54B3941E1E4D76006A26D9 /* User.swift */; };
 		AC54B3971E1E4DCA006A26D9 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC54B3961E1E4DCA006A26D9 /* Group.swift */; };
@@ -35,6 +37,8 @@
 		AC1F83C51E420B330011AF79 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		AC2F60731E36009600E26A4D /* vk_client-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "vk_client-Bridging-Header.h"; sourceTree = "<group>"; };
 		AC2F60741E362EDE00E26A4D /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		AC35E1901E43397E001F4A25 /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
+		AC35E1921E437164001F4A25 /* Owner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Owner.swift; sourceTree = "<group>"; };
 		AC35FF741E40B938006E7481 /* NewsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsTableViewCell.xib; sourceTree = "<group>"; };
 		AC54B3941E1E4D76006A26D9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AC54B3961E1E4DCA006A26D9 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
@@ -80,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				AC1F83C51E420B330011AF79 /* Extensions.swift */,
+				AC35E1901E43397E001F4A25 /* JSONParser.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -93,19 +98,21 @@
 			name = NewsCell;
 			sourceTree = "<group>";
 		};
-		AC35FF761E40C3E8006E7481 /* Model */ = {
+		AC35FF761E40C3E8006E7481 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				AC54B3981E1E4EA5006A26D9 /* News.swift */,
 				AC54B3961E1E4DCA006A26D9 /* Group.swift */,
 				AC54B3941E1E4D76006A26D9 /* User.swift */,
+				AC35E1921E437164001F4A25 /* Owner.swift */,
 			);
-			name = Model;
+			name = Models;
 			sourceTree = "<group>";
 		};
 		AC35FF771E40C3EE006E7481 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				AC35E2511E41FA4F00D6C1F5 /* NewsCell */,
 				ACB2940A1E11430A004D06A2 /* Main.storyboard */,
 				AC91CEA21E4215AA00EFD2C2 /* First.storyboard */,
 			);
@@ -153,11 +160,10 @@
 			isa = PBXGroup;
 			children = (
 				AC1F83C41E420B180011AF79 /* Helpers */,
-				AC35E2511E41FA4F00D6C1F5 /* NewsCell */,
 				AC35FF791E40C414006E7481 /* api */,
 				AC35FF781E40C3F2006E7481 /* Controller */,
 				AC35FF771E40C3EE006E7481 /* View */,
-				AC35FF761E40C3E8006E7481 /* Model */,
+				AC35FF761E40C3E8006E7481 /* Models */,
 				ACB294061E11430A004D06A2 /* AppDelegate.swift */,
 				AC1670641E1154A20003EC3B /* VKDelegateEx.swift */,
 				ACB294101E11430A004D06A2 /* Assets.xcassets */,
@@ -305,6 +311,7 @@
 			files = (
 				AC91CEA51E4215D600EFD2C2 /* UserAuthCheckController.swift in Sources */,
 				AC54B3971E1E4DCA006A26D9 /* Group.swift in Sources */,
+				AC35E1911E43397E001F4A25 /* JSONParser.swift in Sources */,
 				AC1670621E1148020003EC3B /* NewsController.swift in Sources */,
 				ACB294091E11430A004D06A2 /* LoginController.swift in Sources */,
 				AC1AE3381E12AF020084534A /* NewsTableViewCell.swift in Sources */,
@@ -315,6 +322,7 @@
 				ACB294071E11430A004D06A2 /* AppDelegate.swift in Sources */,
 				AC54B3991E1E4EA5006A26D9 /* News.swift in Sources */,
 				AC2F60751E362EDE00E26A4D /* DetailViewController.swift in Sources */,
+				AC35E1931E437164001F4A25 /* Owner.swift in Sources */,
 				ACB2940F1E11430A004D06A2 /* vk_client.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

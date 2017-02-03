@@ -82,10 +82,11 @@ final class APIWorker {
         var timeInterval = NSDate().timeIntervalSince1970
         timeInterval -= 7200
         
-        VK.API.custom(method: "newsfeed.get", parameters: [VK.Arg.endTime : "\(timeInterval)"]).send(
+        VK.API.custom(method: "newsfeed.get", parameters: [VK.Arg.endTime : "\(timeInterval)", VK.Arg.count: "100"]).send(
             onSuccess: { response in
                 var i = response["items"].count - 1
                 let controlNews = newsArray[newsArray.count - 1]
+                let index = newsArray.count
                 var check = true
                 while check == true{
                     if controlNews.id != response["items"].arrayValue[i]["post_id"].intValue{
@@ -95,7 +96,7 @@ final class APIWorker {
                         if response["items"].arrayValue[i]["attachments"] != nil{
                             news = JSONParser.parseNews(items: response["items"].arrayValue[i], users: response["profiles"], groups: response["groups"])
                             if news.id != nil{
-                                newsArr.append(news)
+                                newsArr.insert(news, at: index)
                             }
                             print("\(newsArr.count) count of final array")
                         }

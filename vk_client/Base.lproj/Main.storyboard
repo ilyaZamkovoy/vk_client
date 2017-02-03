@@ -56,11 +56,15 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="I8x-lS-ri0" id="srf-66-Ctd">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="RS4-QZ-Nek" id="a68-wA-jaK"/>
+                            <outlet property="delegate" destination="RS4-QZ-Nek" id="SB5-nG-tKM"/>
+                        </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="phi-OG-dtN">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="Beq-4i-TH1">

@@ -28,7 +28,6 @@ class NewsController: UIViewController{
         print("im here")
         self.addDataIntoNewsArray(callback: {
             DispatchQueue.main.async {[weak self] in
-                self?.tableView.dataSource = self
                 self?.tableView.reloadData()
             }
         
@@ -68,7 +67,6 @@ class NewsController: UIViewController{
                 DispatchQueue.main.async {
                     
                     tableView.finishInfiniteScroll()
-                    self?.tableView.dataSource = self
                     self?.tableView.reloadData()
                 }
             })
@@ -79,7 +77,6 @@ class NewsController: UIViewController{
         self.gettingFreshNews (callback: {[weak self] result in
             DispatchQueue.main.async {
                 self?.refreshControl.endRefreshing()
-                self?.tableView.dataSource = self
                 self?.tableView.reloadData()
             }
         })
@@ -121,10 +118,18 @@ class NewsController: UIViewController{
     
     // MARK: Segue methods
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let indexPath = self.tableView.indexPathForSelectedRow{
-            let destinationVC = segue.destination as! DetailViewController
-            destinationVC.news = self.newsArray[indexPath.row]
+//        guard let detailController = segue.destination as? DetailViewController,
+//            let indexPath = sender as? IndexPath, segue.identifier == "showNewsSegue"
+//            else {return}
+//        detailController.news = self.newsArray[indexPath.row]
+
+        if segue.identifier == "showNewsSegue" {
+            if let indexPath = self.tableView.indexPathForSelectedRow{
+                let destinationVC = segue.destination as! DetailViewController
+                destinationVC.news = self.newsArray[indexPath.row]
+            }
         }
+        
     }
 
 }

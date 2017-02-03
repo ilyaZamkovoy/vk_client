@@ -29,11 +29,11 @@ class NewsController: UIViewController{
         self.addDataIntoNewsArray(callback: {
             DispatchQueue.main.async {[weak self] in
                 self?.tableView.reloadData()
+                self?.addRefreshControl()
+                self?.addInfinityScroll()
             }
-        
+            
         })
-        self.addRefreshControl()
-        self.addInfinityScroll()
     }
     
     //making first request for news on app starting

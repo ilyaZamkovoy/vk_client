@@ -27,68 +27,28 @@ class DetailViewController: UIViewController {
         
         self.tabBarController?.tabBar.layer.zPosition = -1
         
-        
-        if !news.text.isEmpty {
-           postLabel.text = news.text
-        } else {
-            postLabel.text = ""
-        }
-        postLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        
-        let date = NSDate(timeIntervalSince1970: news.date as TimeInterval)
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
-        let dateInFormat = dateFormatter.string(from: date as Date)
-        
-        dateOfPost.text = dateInFormat
-        
-        if news.user != nil {
-            let user = news.user!
-            userNameLabel.text = user.name
-            let url = URL(string: user.photo)
-            
-            userProfileImage.kf.setImage(with: url)
-        } else {
-            let group = news.group!
-            userNameLabel.text = group.name
-            if group.photo != nil {
-                let url = URL(string: group.photo)
-                userProfileImage.layer.cornerRadius = userProfileImage.bounds.size.width / 2.0
-                userProfileImage.layer.masksToBounds = true
-                userProfileImage.kf.setImage(with: url)
-            } else {
-                userProfileImage.image = #imageLiteral(resourceName: "addImage")
-            }
-        }
-        
-        
-        if news.photo != nil{
-            let url = URL(string: news.photo)
-            postImageView.kf.setImage(with: url)
-            var width = postImageView.image?.size.width
-            var height = postImageView.image?.size.height
-            
-            if width! > CGFloat(550) {
-                let elem = width!/351
-                width = width!*elem
-                
-            }
-            if height! > CGFloat(550) {
-                let elem = height!/400
-                height = height!*elem
-            }
-            let screenSize: CGRect = postImageView.bounds
-            postImageView.frame = CGRect(x: 0, y: 0, width: screenSize.height * 0.2, height: 50)
-//            postImageView.frame = CGRect?(0,0, screenSize.height * 0.2, 50)
-            
-        }else{
-            postImageView.image = #imageLiteral(resourceName: "addImage")
-        }
-        
+        self.putDataIntoFields()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    func putDataIntoFields(){
+        postLabel.text = news.text
+        
+        dateOfPost.text = news.finalDate
+        
+        let owner = news.finalOwner
+        userNameLabel.text = owner.name
+        
+        let url = URL(string: owner.photo)
+        userProfileImage.kf.setImage(with: url)
+        
+        if news.photo != nil {
+            let url = URL(string: news.photo)
+            postImageView.kf.setImage(with: url)
+        }else{
+            postImageView.image = #imageLiteral(resourceName: "addImage")
+        }
+    }
     
     
     override func didReceiveMemoryWarning() {

@@ -35,7 +35,7 @@ class DetailViewController: UIViewController {
         }
         postLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         
-        let date = NSDate(timeIntervalSince1970: news.date)
+        let date = NSDate(timeIntervalSince1970: news.date as TimeInterval)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"

@@ -46,24 +46,29 @@ final class APIWorker {
     
     class func refresh(newsArray: [News], callback: @escaping ([News]) -> Void){
         var newsArr = newsArray
+        let controlNews = newsArray[0]
         
         VK.API.custom(method: "newsfeed.get").send(
             onSuccess:{ response in
                 var i = 0
-                let controlNews = newsArr[0]
+                
                 var check = false
                 while check != true{
                     if controlNews.id != response["items"].arrayValue[i]["post_id"].intValue{
-                        var news: News?
-                        news = JSONParser.parseNews(items: response["items"].arrayValue[i], users: response["profiles"], groups: response["groups"])
-                        if news != nil{
-                            newsArr.insert(news!, at: 0)
+                        print(controlNews.id)
+                        print(response["items"].arrayValue[i]["post_id"].intValue)
+                        var news = News()
+                        if response["items"].arrayValue[i]["attachments"] != nil{
+                            news = JSONParser.parseNews(items: response["items"].arrayValue[i], users: response["profiles"],    groups: response["groups"])
+                            if news.id != nil{
+                                newsArr.insert(news, at: 0)
+                            }
                         }
-                        i += 1;
+                        print(newsArr.count)
                     } else {
                         check = true
                     }
-                    
+                    i += 1;
                 }
                 callback(newsArr)
         },
@@ -74,14 +79,37 @@ final class APIWorker {
     class func getOlderNews(newsArray: [News], callback: @escaping ([News]) -> Void){
         var newsArr = newsArray
         
-        VK.API.custom(method: "newsfeed.get", parameters: [VK.Arg(rawValue: "start_time")! : "retes"]).send(
+        var timeInterval = NSDate().timeIntervalSince1970
+        timeInterval -= 7200
+        
+        VK.API.custom(method: "newsfeed.get", parameters: [VK.Arg.endTime : "\(timeInterval)"]).send(
             onSuccess: { response in
-        
-                
-        
+                var i = response["items"].count - 1
+                let controlNews = newsArray[newsArray.count - 1]
+                var check = true
+                while check == true{
+                    if controlNews.id != response["items"].arrayValue[i]["post_id"].intValue{
+                        print("\(controlNews.id) id of control news")
+                        print("\(response["items"].arrayValue[i]["post_id"].intValue) id of the next element")
+                        var news = News()
+                        if response["items"].arrayValue[i]["attachments"] != nil{
+                            news = JSONParser.parseNews(items: response["items"].arrayValue[i], users: response["profiles"], groups: response["groups"])
+                            if news.id != nil{
+                                newsArr.append(news)
+                            }
+                            print("\(newsArr.count) count of final array")
+                        }
+                    } else {
+                        check = false
+                    }
+                    i -= 1;
+                    if i == 0 {
+                        check = false
+                    }
+                }
+                callback(newsArr)
         },
             onError: { error in print("fail \n \(error)")}
-        
         )
     
     }

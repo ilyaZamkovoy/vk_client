@@ -12,7 +12,7 @@ class News {
 
     var id: Int!
     var text: String!
-    var date: Double!
+    var date: NSNumber!
     var photo: String!
     var ownerApiId: String!
     var index: Int?
@@ -21,7 +21,7 @@ class News {
     var group: Group!
     
     var finalDate: String {
-        let date = NSDate(timeIntervalSince1970: self.date)
+        let date = NSDate(timeIntervalSince1970: self.date as TimeInterval)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         let dateInFormat = dateFormatter.string(from: date as Date)

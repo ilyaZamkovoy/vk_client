@@ -11,14 +11,10 @@ import SwiftyVK
 
 class LoginController: UIViewController{
     
-    let vkDelegate = VKDelegateEx()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(LoginController.loginSuccessfull(note:)),
                                                name: Notification.Name(rawValue: "TestVkDidAuthorize"), object: nil)
         

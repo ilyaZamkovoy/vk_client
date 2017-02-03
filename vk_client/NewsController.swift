@@ -25,6 +25,7 @@ class NewsController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("im here")
         self.addDataIntoNewsArray(callback: {
             DispatchQueue.main.async {[weak self] in
                 self?.tableView.dataSource = self
@@ -40,6 +41,7 @@ class NewsController: UIViewController{
     func addDataIntoNewsArray(callback: @escaping () -> Void){
         DispatchQueue.main.async {
             APIWorker.getNews {[weak self] result in
+                
                 self?.newsArray = result
                 callback()
             }
@@ -62,35 +64,43 @@ class NewsController: UIViewController{
     //func that adding all news from newsArray
     func addInfinityScroll(){
         tableView.addInfiniteScroll { (tableView) -> Void in
-            DispatchQueue.main.async {
-                self.tableView.dataSource = self
-                self.tableView.reloadData()
-            }
-            tableView.finishInfiniteScroll()
+            self.gettingOlderNews(callback:  {[weak self] result in
+                DispatchQueue.main.async {
+                    
+                    tableView.finishInfiniteScroll()
+                    self?.tableView.dataSource = self
+                    self?.tableView.reloadData()
+                }
+            })
         }
     }
     //func that reload table view and calling func for updating data in newsArray
     func refreshNews(sender:AnyObject) {
-        self.refreshControl.endRefreshing()
-        self.gettingFreshNews {
+        self.gettingFreshNews (callback: {[weak self] result in
             DispatchQueue.main.async {
-                self.tableView.dataSource = self
-                self.tableView.reloadData()
+                self?.refreshControl.endRefreshing()
+                self?.tableView.dataSource = self
+                self?.tableView.reloadData()
             }
-        }
+        })
     }
     //func that update news in newsArray
     func gettingFreshNews(callback: @escaping () -> Void){
-        DispatchQueue.main.async {
-            APIWorker.refresh(newsArray: self.newsArray){ result in
-                self.newsArray = result
-                callback()
-            }
+            APIWorker.refresh(newsArray: self.newsArray){[weak self] result in
+                DispatchQueue.main.async {
+                    self?.newsArray = result
+                    callback()
+                }
         }
     }
     
     func gettingOlderNews(callback: @escaping () -> Void){
         DispatchQueue.main.async {
+            APIWorker.getOlderNews(newsArray: self.newsArray){ [weak self] result in
+               
+                self?.newsArray = result
+                callback()
+            }
             
         }
     
@@ -116,7 +126,6 @@ class NewsController: UIViewController{
                 let destinationVC = segue.destination as! DetailViewController
                 destinationVC.news = self.newsArray[(indexPath as NSIndexPath).row]
             }
-            
         }
     }
 
@@ -131,7 +140,8 @@ extension NewsController: UITableViewDelegate, UITableViewDataSource{
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.cellIdentifier()) as! NewsTableViewCell
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.cellIdentifier(), for: indexPath) as! NewsTableViewCell
+        
         
         let news = self.newsArray[indexPath.row]
         news.index = indexPath.row
@@ -140,5 +150,4 @@ extension NewsController: UITableViewDelegate, UITableViewDataSource{
         
         return cell
     }
-
 }

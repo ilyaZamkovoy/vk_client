@@ -69,7 +69,6 @@ public struct VK {
         } else {
             return false        
         }
-    
     }
 
     /**

@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Kingfisher
 
-class NewsTableViewCell: UITableViewCell {
+class NewsTableViewCell: UITableViewCell, UITableViewDelegate {
     
     @IBOutlet weak var postOwnersImage: UIImageView!
     @IBOutlet weak var postImage: UIImageView!

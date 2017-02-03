@@ -121,11 +121,9 @@ class NewsController: UIViewController{
     
     // MARK: Segue methods
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showNewsSegue"{
-            if let indexPath = self.tableView.indexPathForSelectedRow{
-                let destinationVC = segue.destination as! DetailViewController
-                destinationVC.news = self.newsArray[(indexPath as NSIndexPath).row]
-            }
+        if let indexPath = self.tableView.indexPathForSelectedRow{
+            let destinationVC = segue.destination as! DetailViewController
+            destinationVC.news = self.newsArray[indexPath.row]
         }
     }
 
@@ -140,8 +138,8 @@ extension NewsController: UITableViewDelegate, UITableViewDataSource{
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.cellIdentifier(), for: indexPath) as! NewsTableViewCell
-        
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.cellIdentifier()) as! NewsTableViewCell
+    
         
         let news = self.newsArray[indexPath.row]
         news.index = indexPath.row
@@ -149,5 +147,9 @@ extension NewsController: UITableViewDelegate, UITableViewDataSource{
         cell.compareData(news: news)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "showNewsSegue", sender: self)
     }
 }

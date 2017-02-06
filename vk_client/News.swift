@@ -10,12 +10,38 @@ import Foundation
 
 class News {
 
+    var id: Int!
     var text: String!
-    var date: Double!
+    var date: NSNumber!
     var photo: String!
     var ownerApiId: String!
+    var index: Int?
     
     var user: User!
     var group: Group!
+    
+    var finalDate: String {
+        let date = NSDate(timeIntervalSince1970: self.date as TimeInterval)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        let dateInFormat = dateFormatter.string(from: date as Date)
+        return dateInFormat
+    }
+    
+    var finalText: String {
+        if self.text.isEmpty{
+            return ""
+        } else {
+            return self.text
+        }
+    }
+    
+    var finalOwner: Owner {
+        if self.user != nil {
+            return self.user
+        } else {
+            return self.group
+        }
+    }
     
 }

@@ -8,13 +8,6 @@
 
 import Foundation
 
-
-class User {
-
-    var last_name: String!
-    var id: Int!
-    var first_name: String!
-    var photo: String!
-    
+class User: Owner {
 
 }

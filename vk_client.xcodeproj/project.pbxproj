@@ -11,10 +11,17 @@
 		AC1670621E1148020003EC3B /* NewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1670611E1148020003EC3B /* NewsController.swift */; };
 		AC1670651E1154A20003EC3B /* VKDelegateEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1670641E1154A20003EC3B /* VKDelegateEx.swift */; };
 		AC1AE3381E12AF020084534A /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1AE3371E12AF020084534A /* NewsTableViewCell.swift */; };
+		AC1F83C61E420B330011AF79 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1F83C51E420B330011AF79 /* Extensions.swift */; };
+		AC2F60751E362EDE00E26A4D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F60741E362EDE00E26A4D /* DetailViewController.swift */; };
+		AC35E1911E43397E001F4A25 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC35E1901E43397E001F4A25 /* JSONParser.swift */; };
+		AC35E1931E437164001F4A25 /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC35E1921E437164001F4A25 /* Owner.swift */; };
+		AC35FF751E40B938006E7481 /* NewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC35FF741E40B938006E7481 /* NewsTableViewCell.xib */; };
 		AC54B3951E1E4D76006A26D9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC54B3941E1E4D76006A26D9 /* User.swift */; };
 		AC54B3971E1E4DCA006A26D9 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC54B3961E1E4DCA006A26D9 /* Group.swift */; };
 		AC54B3991E1E4EA5006A26D9 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC54B3981E1E4EA5006A26D9 /* News.swift */; };
 		AC8921041E193471005E021C /* ApiWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8921031E193471005E021C /* ApiWorker.swift */; };
+		AC91CEA31E4215AA00EFD2C2 /* First.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC91CEA21E4215AA00EFD2C2 /* First.storyboard */; };
+		AC91CEA51E4215D600EFD2C2 /* UserAuthCheckController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC91CEA41E4215D600EFD2C2 /* UserAuthCheckController.swift */; };
 		ACB294071E11430A004D06A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB294061E11430A004D06A2 /* AppDelegate.swift */; };
 		ACB294091E11430A004D06A2 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB294081E11430A004D06A2 /* LoginController.swift */; };
 		ACB2940C1E11430A004D06A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACB2940A1E11430A004D06A2 /* Main.storyboard */; };
@@ -27,10 +34,18 @@
 		AC1670611E1148020003EC3B /* NewsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsController.swift; sourceTree = "<group>"; };
 		AC1670641E1154A20003EC3B /* VKDelegateEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKDelegateEx.swift; sourceTree = "<group>"; };
 		AC1AE3371E12AF020084534A /* NewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
+		AC1F83C51E420B330011AF79 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		AC2F60731E36009600E26A4D /* vk_client-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "vk_client-Bridging-Header.h"; sourceTree = "<group>"; };
+		AC2F60741E362EDE00E26A4D /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		AC35E1901E43397E001F4A25 /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
+		AC35E1921E437164001F4A25 /* Owner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Owner.swift; sourceTree = "<group>"; };
+		AC35FF741E40B938006E7481 /* NewsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsTableViewCell.xib; sourceTree = "<group>"; };
 		AC54B3941E1E4D76006A26D9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AC54B3961E1E4DCA006A26D9 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		AC54B3981E1E4EA5006A26D9 /* News.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		AC8921031E193471005E021C /* ApiWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiWorker.swift; sourceTree = "<group>"; };
+		AC91CEA21E4215AA00EFD2C2 /* First.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = First.storyboard; sourceTree = "<group>"; };
+		AC91CEA41E4215D600EFD2C2 /* UserAuthCheckController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAuthCheckController.swift; sourceTree = "<group>"; };
 		ACB294031E11430A004D06A2 /* vk_client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vk_client.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACB294061E11430A004D06A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACB294081E11430A004D06A2 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
@@ -65,6 +80,64 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		AC1F83C41E420B180011AF79 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				AC1F83C51E420B330011AF79 /* Extensions.swift */,
+				AC35E1901E43397E001F4A25 /* JSONParser.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		AC35E2511E41FA4F00D6C1F5 /* NewsCell */ = {
+			isa = PBXGroup;
+			children = (
+				AC1AE3371E12AF020084534A /* NewsTableViewCell.swift */,
+				AC35FF741E40B938006E7481 /* NewsTableViewCell.xib */,
+			);
+			name = NewsCell;
+			sourceTree = "<group>";
+		};
+		AC35FF761E40C3E8006E7481 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AC54B3981E1E4EA5006A26D9 /* News.swift */,
+				AC54B3961E1E4DCA006A26D9 /* Group.swift */,
+				AC54B3941E1E4D76006A26D9 /* User.swift */,
+				AC35E1921E437164001F4A25 /* Owner.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		AC35FF771E40C3EE006E7481 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AC35E2511E41FA4F00D6C1F5 /* NewsCell */,
+				ACB2940A1E11430A004D06A2 /* Main.storyboard */,
+				AC91CEA21E4215AA00EFD2C2 /* First.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		AC35FF781E40C3F2006E7481 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				ACB294081E11430A004D06A2 /* LoginController.swift */,
+				AC1670611E1148020003EC3B /* NewsController.swift */,
+				AC2F60741E362EDE00E26A4D /* DetailViewController.swift */,
+				AC91CEA41E4215D600EFD2C2 /* UserAuthCheckController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		AC35FF791E40C414006E7481 /* api */ = {
+			isa = PBXGroup;
+			children = (
+				AC8921031E193471005E021C /* ApiWorker.swift */,
+			);
+			name = api;
+			sourceTree = "<group>";
+		};
 		ACB293FA1E11430A004D06A2 = {
 			isa = PBXGroup;
 			children = (
@@ -86,20 +159,18 @@
 		ACB294051E11430A004D06A2 /* vk_client */ = {
 			isa = PBXGroup;
 			children = (
+				AC1F83C41E420B180011AF79 /* Helpers */,
+				AC35FF791E40C414006E7481 /* api */,
+				AC35FF781E40C3F2006E7481 /* Controller */,
+				AC35FF771E40C3EE006E7481 /* View */,
+				AC35FF761E40C3E8006E7481 /* Models */,
 				ACB294061E11430A004D06A2 /* AppDelegate.swift */,
-				ACB294081E11430A004D06A2 /* LoginController.swift */,
 				AC1670641E1154A20003EC3B /* VKDelegateEx.swift */,
-				AC1670611E1148020003EC3B /* NewsController.swift */,
-				AC1AE3371E12AF020084534A /* NewsTableViewCell.swift */,
-				AC8921031E193471005E021C /* ApiWorker.swift */,
-				AC54B3941E1E4D76006A26D9 /* User.swift */,
-				AC54B3961E1E4DCA006A26D9 /* Group.swift */,
-				AC54B3981E1E4EA5006A26D9 /* News.swift */,
-				ACB2940A1E11430A004D06A2 /* Main.storyboard */,
 				ACB294101E11430A004D06A2 /* Assets.xcassets */,
 				ACB294121E11430A004D06A2 /* LaunchScreen.storyboard */,
 				ACB294151E11430A004D06A2 /* Info.plist */,
 				ACB2940D1E11430A004D06A2 /* vk_client.xcdatamodeld */,
+				AC2F60731E36009600E26A4D /* vk_client-Bridging-Header.h */,
 			);
 			path = vk_client;
 			sourceTree = "<group>";
@@ -178,6 +249,8 @@
 				ACB294141E11430A004D06A2 /* LaunchScreen.storyboard in Resources */,
 				ACB294111E11430A004D06A2 /* Assets.xcassets in Resources */,
 				ACB2940C1E11430A004D06A2 /* Main.storyboard in Resources */,
+				AC35FF751E40B938006E7481 /* NewsTableViewCell.xib in Resources */,
+				AC91CEA31E4215AA00EFD2C2 /* First.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,15 +309,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC91CEA51E4215D600EFD2C2 /* UserAuthCheckController.swift in Sources */,
 				AC54B3971E1E4DCA006A26D9 /* Group.swift in Sources */,
+				AC35E1911E43397E001F4A25 /* JSONParser.swift in Sources */,
 				AC1670621E1148020003EC3B /* NewsController.swift in Sources */,
 				ACB294091E11430A004D06A2 /* LoginController.swift in Sources */,
 				AC1AE3381E12AF020084534A /* NewsTableViewCell.swift in Sources */,
 				AC1670651E1154A20003EC3B /* VKDelegateEx.swift in Sources */,
 				AC54B3951E1E4D76006A26D9 /* User.swift in Sources */,
 				AC8921041E193471005E021C /* ApiWorker.swift in Sources */,
+				AC1F83C61E420B330011AF79 /* Extensions.swift in Sources */,
 				ACB294071E11430A004D06A2 /* AppDelegate.swift in Sources */,
 				AC54B3991E1E4EA5006A26D9 /* News.swift in Sources */,
+				AC2F60751E362EDE00E26A4D /* DetailViewController.swift in Sources */,
+				AC35E1931E437164001F4A25 /* Owner.swift in Sources */,
 				ACB2940F1E11430A004D06A2 /* vk_client.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -373,7 +451,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zamkovoyIlya.vk-client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "vk_client/vk_client-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
+				USER_HEADER_SEARCH_PATHS = "Pods/**";
 			};
 			name = Debug;
 		};
@@ -388,7 +468,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zamkovoyIlya.vk-client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "vk_client/vk_client-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
+				USER_HEADER_SEARCH_PATHS = "Pods/**";
 			};
 			name = Release;
 		};

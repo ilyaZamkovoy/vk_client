@@ -13,20 +13,113 @@ final class APIWorker {
 
     
     class func authorize() {
-        VK.logOut()
-        print("SwiftyVK: LogOut")
         VK.logIn()
         print("SwiftyVK: authorize")
     }
-    
-    
     
     class func logout() {
         VK.logOut()
         print("SwiftyVK: LogOut")
     }
     
+    class func getNews(callback: @escaping ([News]) -> Void){
+        var newsArray = [News]()
+        
+        
+        
+        VK.API.custom(method: "newsfeed.get").send(
+            onSuccess:{ response in
+                var i = 0;
+                while i != response["items"].count{
+                    var news = News()
+                    if response["items"].arrayValue[i]["attachments"] != nil{
+                        news = JSONParser.parseNews(items: response["items"].arrayValue[i], users: response["profiles"], groups: response["groups"])
+                        if news.id != nil{
+                            newsArray.append(news)
+                        }
+                    }
+                    i += 1;
+                }
+                callback(newsArray)
+        },
+            onError: {error in print(" fail \n \(error)")}
+        )
+        }
     
+    class func refresh(newsArray: [News], callback: @escaping ([News]) -> Void){
+        var newsArr = newsArray
+        let controlNews = newsArray[0]
+        
+        
+        VK.API.custom(method: "newsfeed.get", parameters: [VK.Arg.count: "50"]).send(
+            onSuccess:{ response in
+                var i = 0
+                
+                var check = false
+                while check != true{
+                    if controlNews.id != response["items"].arrayValue[i]["post_id"].intValue{
+                        print(controlNews.id)
+                        print(response["items"].arrayValue[i]["post_id"].intValue)
+                        var news = News()
+                        if response["items"].arrayValue[i]["attachments"] != nil{
+                            news = JSONParser.parseNews(items: response["items"].arrayValue[i], users: response["profiles"],    groups: response["groups"])
+                            if news.id != nil{
+                                newsArr.insert(news, at: 0)
+                            }
+                        }
+                        print(newsArr.count)
+                    } else {
+                        check = true
+                    }
+                    i += 1;
+                }
+                callback(newsArr)
+        },
+            onError: {error in print(" fail \n \(error)")}
+        )
+    }
+    
+    class func getOlderNews(newsArray: [News], callback: @escaping ([News]) -> Void){
+        var newsArr = newsArray
+        
+        var timeInterval = NSDate().timeIntervalSince1970
+        timeInterval -= 14400
+        let index = newsArray.count
+        let controlNews = newsArray[newsArray.count - 1]
+        
+        
+        VK.API.custom(method: "newsfeed.get", parameters: [VK.Arg.endTime : "\(timeInterval)", VK.Arg.count: "100"]).send(
+            onSuccess: { response in
+                var i = response["items"].count - 1
+                
+                
+                var check = true
+                while check == true{
+                    if controlNews.id != response["items"].arrayValue[i]["post_id"].intValue{
+                        print("\(controlNews.id) id of control news")
+                        print("\(response["items"].arrayValue[i]["post_id"].intValue) id of the next element")
+                        var news = News()
+                        if response["items"].arrayValue[i]["attachments"] != nil{
+                            news = JSONParser.parseNews(items: response["items"].arrayValue[i], users: response["profiles"], groups: response["groups"])
+                            if news.id != nil{
+                                newsArr.insert(news, at: index)
+                            }
+                            print("\(newsArr.count) count of final array")
+                        }
+                    } else {
+                        check = false
+                    }
+                    i -= 1;
+                    if i == 0 {
+                        check = false
+                    }
+                }
+                callback(newsArr)
+        },
+            onError: { error in print("fail \n \(error)")}
+        )
+    
+    }
     
     class func captcha() {
         VK.API.custom(method: "captcha.force").send(

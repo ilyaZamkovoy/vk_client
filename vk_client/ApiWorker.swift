@@ -25,6 +25,8 @@ final class APIWorker {
     class func getNews(callback: @escaping ([News]) -> Void){
         var newsArray = [News]()
         
+        
+        
         VK.API.custom(method: "newsfeed.get").send(
             onSuccess:{ response in
                 var i = 0;
@@ -48,7 +50,8 @@ final class APIWorker {
         var newsArr = newsArray
         let controlNews = newsArray[0]
         
-        VK.API.custom(method: "newsfeed.get").send(
+        
+        VK.API.custom(method: "newsfeed.get", parameters: [VK.Arg.count: "50"]).send(
             onSuccess:{ response in
                 var i = 0
                 
@@ -80,13 +83,16 @@ final class APIWorker {
         var newsArr = newsArray
         
         var timeInterval = NSDate().timeIntervalSince1970
-        timeInterval -= 7200
+        timeInterval -= 14400
+        let index = newsArray.count
+        let controlNews = newsArray[newsArray.count - 1]
+        
         
         VK.API.custom(method: "newsfeed.get", parameters: [VK.Arg.endTime : "\(timeInterval)", VK.Arg.count: "100"]).send(
             onSuccess: { response in
                 var i = response["items"].count - 1
-                let controlNews = newsArray[newsArray.count - 1]
-                let index = newsArray.count
+                
+                
                 var check = true
                 while check == true{
                     if controlNews.id != response["items"].arrayValue[i]["post_id"].intValue{

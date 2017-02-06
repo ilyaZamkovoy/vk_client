@@ -25,10 +25,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tabBarController?.tabBar.layer.zPosition = -1
-        
         self.putDataIntoFields()
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     func putDataIntoFields(){
